@@ -58,6 +58,8 @@ statement: var_declare
 		 | call_stmt
 		 | return_stmt;
 
+//------Expression------
+
 assign_stmt: (ID | ID (LS INTLIT RS)+) ASSIGNMENT exp0 SEMI;
 
 exp0: exp1 rela_op exp1 | exp1 ;
@@ -84,10 +86,14 @@ dec_op: SUBINT | SUBFLOAT ;
 
 index_op: (LS expression RS)+ ; 
 
+//------Expression For Index operator------
+
 expression: addexpr ;
 addexpr: addexpr (ADDINT | SUBINT | MULINT | DIVINT | MOD) funcexpr | funcexpr ;
 funcexpr: openrands func_call openrands | openrands ;
 openrands: LP expression RP | ID | INTLIT ; 
+
+//------Statements------
 
 func_call: ID LP argumentList RP ;
 
@@ -272,6 +278,10 @@ STRINGLIT: '"' Characters* '"'
 ARRAYLIT: LB ARRAY COMMA ARRAYLIT RB | ARRAY ;
 
 ARRAY: LB (INTLIT | FLOATLIT | STRINGLIT) (COMMA INTLIT | FLOATLIT | STRINGLIT)* RB;
+
+//------Comment------
+
+BLOCK_COMMENT: '**' .*? '**' -> skip ;
 	
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
