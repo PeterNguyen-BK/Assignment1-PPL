@@ -1,0 +1,9 @@
+Function: fact
+                        Parameter: n, x, y
+                        Body:
+                            Var: r = 2;
+                            Var: v[3] = {1,2,3};
+                            Var: a[2] = {1,2};
+                            a[2] = 19;
+                        EndBody.
+        
