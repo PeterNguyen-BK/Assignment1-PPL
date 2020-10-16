@@ -1,1 +1,1 @@
-Unclosed String: abc def  
+ab'"c\n def,<EOF>

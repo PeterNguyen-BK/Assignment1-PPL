@@ -245,21 +245,23 @@ LTEFLOAT: '<=.' ;
 
 //------Literals------
 
-INTLIT: DECINT | HEXINT | OCTINT;
+fragment Hex: [xX][1-9A-F][0-9A-F]* ;
 
-fragment DECINT: [1-9][0-9]* | [0] ;
+fragment Oct: [oO][1-7][0-7]* ;
 
-fragment HEXINT: [0]([xX][1-9][0-9A-F]*)* ;
-
-fragment OCTINT: [0]([oO][1-7][0-7]*)* ;
+INTLIT: [1-9][0-9]* 
+	  | [0] Hex
+	  | [0] Oct
+	  | [0];
 
 fragment Exponent: [eE] SUBINT? [0-9]+ ;
 
 fragment Digit: [0-9] ;
 
-FLOATLIT: Digit+ DOT Digit* Exponent
-        | Digit+ (DOT Digit* | Exponent)
-		| Digit DOT ;
+FLOATLIT: ([1-9][0-9]*)+ DOT Digit* Exponent
+        | ([1-9][0-9]*)+ (DOT Digit* | Exponent)
+		| ([1-9][0-9]*) DOT 
+		| [0] ;
 
 BOOLLIT: TRUE | FALSE ;
 
@@ -277,11 +279,11 @@ STRINGLIT: '"' Characters* '"'
 
 ARRAYLIT: LB ARRAY COMMA ARRAYLIT RB | ARRAY ;
 
-ARRAY: LB (INTLIT | FLOATLIT | STRINGLIT) (COMMA INTLIT | FLOATLIT | STRINGLIT)* RB;
+ARRAY: LB ((INTLIT | FLOATLIT | STRINGLIT) (COMMA INTLIT | FLOATLIT | STRINGLIT)*)* RB;
 
 //------Comment------
 
-BLOCK_COMMENT: '**' .*? '**' -> skip ;
+BLOCK_COMMENT: '**' .* '**' -> skip ;
 	
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
@@ -289,4 +291,4 @@ WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 ERROR_CHAR: .;
 UNCLOSE_STRING: '"' Characters* ~["] ;
 ILLEGAL_ESCAPE: '"' Characters* Illegal_esc;
-UNTERMINATED_COMMENT: .;
+UNTERMINATED_COMMENT: '**' .*? ;
