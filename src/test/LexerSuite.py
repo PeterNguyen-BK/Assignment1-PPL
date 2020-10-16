@@ -362,5 +362,116 @@ class LexerSuite(unittest.TestCase):
         """@2""",
         """Error Token @""",177))
 
+    def test_73(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """Do x = x + 2; 
+        While x < 9
+        EndDo.""",
+        """Do,x,=,x,+,2,;,While,x,<,9,EndDo,.,<EOF>""",178))
+
+    def test_74(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """foo(2 + x, 4. \. y);""",
+        """foo,(,2,+,x,,,4.,\.,y,),;,<EOF>""",179))
+
+    def test_75(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """goo();""",
+        """goo,(,),;,<EOF>""",180))
+
+    def test_76(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """return a + b;""",
+        """return,a,+,b,;,<EOF>""",181))
+
+    def test_77(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """ "This is test for" unclosed string" """,
+        """This is test for,unclosed,string,Unclosed String:  """,182))
+
+    def test_78(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """then,return,< e0352 : ,,of,>=
+return > array Qbfb5 , function var M274c if <= ; function or <= to = x4045 procedure to <> ] ( else *
+(* false of Bcdfa,<=,J490b begin J6626,<=,break*)""",
+        """then,,,return,,,<,e0352,:,,,,,of,,,>=,return,>,array,Error Token Q""",183))
+
+    def test_79(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """],],* ae0bc not mod,return,,
+function < + qefbe and ; of o366c false array else < > and downto for J4981 : <> return = for then ..
+(* of break h80bb,or,bfa18 ) W6bd3,real,<*)""",
+        """],,,],,,*,ae0bc,not,mod,,,return,,,,,function,<,+,qefbe,and,;,of,o366c,false,array,else,<,>,and,downto,for,Error Token J""",184))
+
+    def test_80(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """(,while,: h050f end return,+,[
+,  or m3ff3 while  for y848d while downto - + , ] ) >= hdcb8 false  for > not and (
+(* ( [ bc9ca,],b1ebd ; w28cd,procedure,if*)""",
+        """(,,,while,,,:,h050f,end,return,,,+,,,[,,,or,m3ff3,while,for,y848d,while,downto,-,+,,,],),>=,hdcb8,false,for,>,not,and,(,(,*,(,[,bc9ca,,,],,,b1ebd,;,w28cd,,,procedure,,,if,*,),<EOF>""",185))
+
+    def test_81(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """rdad 40oBhenK292aWfTSFLt6""",
+        """rdad,40,oBhenK292aWfTSFLt6,<EOF>""",186))
+
+    def test_82(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """=||<=<><>=-<=>""",
+        """=,||,<=,<,>,<,>=,-,<=,>,<EOF>""",187))
+    
+    def test_83(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """1.2 1. .1 1e2 1.2E-2 1.2e-2 .1E2 9.0 12e8 0.33E-3 128e-42""",
+        """1.2,1.,.,1,1e2,1.2E-2,1.2e-2,.,1E2,9.0,12e8,0,.,33E-3,128e-42,<EOF>""",188))
+    def test_84(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """e--12 e12 2E-15 99e 1 1. 1""",
+        """e,-,-,12,e12,2E-15,99,e,1,1.,1,<EOF>""",189))
+    def test_85(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """abc** Comment**""",
+        """abc,<EOF>""",190))
+    def test_86(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """abc*qwe**Test**""",
+        """abc,*,qwe,<EOF>""",191))
+    def test_87(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """abc**qwe**Test**""",
+        """abc,<EOF>""",192))
+    def test_88(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """(*-101*) 11.+12*#$""",
+        """(,*,-,101,*,),11.,+,12,*,Error Token #""",193))
+    def test_89(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """;j~%IbnQL!x-OBd""",
+        """;,j,Error Token ~""",194))
+    def test_90(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """ "abcd \\b 
+        efg""",
+        """Unclosed String: abcd \\b 
+""",195))
+    def test_91(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """ "\\dado\\mado\\a """,
+        """Illegal Escape In String: \\d""",196))
+    def test_92(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """kz-70S9+0s)f<)?0gg""",
+        """kz,-,70,Error Token S""",197))
+    def test_93(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """if then else elif fOr dO WhIle breAk""",
+        """if,then,else,elif,fOr,dO,Error Token W""",198))
+    def test_94(self):
+        self.assertTrue(TestLexer.checkLexeme(
+        """12.e0 -101 11.E 11.1e2""",
+        """12.e0,-,101,11.,Error Token E""",199))
+
+    
+
     
 
