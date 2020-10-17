@@ -43,12 +43,11 @@ variable: ID ASSIGNMENT (INTLIT | FLOATLIT | STRINGLIT | BOOLLIT)
 
 //------Function Declaration
 
-func_declare: FUNCTION COLON ID PARAMETER COLON paramList BODY COLON statement* ENDBODY DOT ;
+func_declare: FUNCTION COLON ID (PARAMETER COLON paramList)? BODY COLON var_declare? statement* ENDBODY DOT ;
 
 paramList: ID (COMMA ID)* ;
 
-statement: var_declare
-         | assign_stmt 
+statement: assign_stmt 
 		 | if_stmt
 		 | for_stmt 
 		 | while_stmt 
@@ -60,7 +59,7 @@ statement: var_declare
 
 //------Expression------
 
-assign_stmt: (ID | ID (LS INTLIT RS)+) ASSIGNMENT exp0 SEMI;
+assign_stmt: (ID | ID (LS INTLIT RS)+ | exp0) ASSIGNMENT exp0 SEMI;
 
 exp0: exp1 rela_op exp1 | exp1 ;
 exp1: exp1 logic_op exp2 | exp2 ;
@@ -69,7 +68,7 @@ exp3: exp3 mul_op exp4 | exp4 ;
 exp4: not_op exp4 | exp5 ;
 exp5: dec_op exp5 | exp6 ;
 exp6: exp6 index_op | exp7 ;
-exp7: exp8 func_call exp8 | exp8 ;
+exp7: func_call | exp8 ;
 exp8: LP exp0 RP | ID | INTLIT | FLOATLIT | STRINGLIT | BOOLLIT ;
 
 rela_op: EQ | NEQ | GT | LT | GTE | LTE | NEQFLOAT | GTFLOAT | LTFLOAT | GTEFLOAT | LTEFLOAT ;
@@ -90,20 +89,20 @@ index_op: (LS expression RS)+ ;
 
 expression: addexpr ;
 addexpr: addexpr (ADDINT | SUBINT | MULINT | DIVINT | MOD) funcexpr | funcexpr ;
-funcexpr: openrands func_call openrands | openrands ;
+funcexpr: func_call | openrands ;
 openrands: LP expression RP | ID | INTLIT ; 
 
 //------Statements------
 
 func_call: ID LP argumentList RP ;
 
-if_stmt: IF exp0 THEN statementList (elseIf_stmt)* (ELSE statementList)? ENDIF DOT ;
+if_stmt: IF exp0+ THEN statementList (elseIf_stmt)* (ELSE statementList)? ENDIF DOT ;
 
 elseIf_stmt: ELSEIF exp0 THEN statementList ;
 
 statementList: statement* ;
 
-for_stmt: FOR LP exp0 COMMA exp0 COMMA exp0 RP DO statementList ENDFOR DOT ;
+for_stmt: FOR LP ((ID | ID (LS INTLIT RS)+) ASSIGNMENT exp0) COMMA exp0 COMMA exp0 RP DO statementList ENDFOR DOT ;
 
 while_stmt: WHILE exp0 DO statementList ENDWHILE DOT ;
 
@@ -162,10 +161,6 @@ RETURN: 'Return' ;
 THEN: 'Then' ;
 
 WHILE: 'While' ;
-
-TRUE: 'True' ;
-
-FALSE: 'False' ;
 
 ENDDO: 'EndDo' ;
 
@@ -258,12 +253,12 @@ fragment Exponent: [eE] SUBINT? [0-9]+ ;
 
 fragment Digit: [0-9] ;
 
-FLOATLIT: ([1-9][0-9]*)+ DOT Digit* Exponent
-        | ([1-9][0-9]*)+ (DOT Digit* | Exponent)
-		| ([1-9][0-9]*) DOT 
-		| [0] ;
+FLOATLIT: (([1-9][0-9]*)+ | [0]) DOT Digit* Exponent
+        | (([1-9][0-9]*)+ | [0]) DOT Digit* 
+		| ([1-9][0-9]*)+ Exponent
+		| (([1-9][0-9]*) | [0]) DOT ;
 
-BOOLLIT: TRUE | FALSE ;
+BOOLLIT: 'True' | 'False' ;
 
 fragment Characters: ~[\b\f\r\n\t"'\\] | Esc_Seq ;
 
@@ -279,7 +274,10 @@ STRINGLIT: '"' Characters* '"'
 
 ARRAYLIT: LB ARRAY COMMA ARRAYLIT RB | ARRAY ;
 
-ARRAY: LB ((INTLIT | FLOATLIT | STRINGLIT) (COMMA INTLIT | FLOATLIT | STRINGLIT)*)* RB;
+ARRAY: LB (INTLIT (COMMA INTLIT)*)* RB
+	 | LB (FLOATLIT (COMMA FLOATLIT)*)* RB 
+	 | LB (STRINGLIT (COMMA STRINGLIT)*)* RB
+	 | LB (BOOLLIT (COMMA BOOLLIT)*)* RB;
 
 //------Comment------
 

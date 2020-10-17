@@ -1,0 +1,8 @@
+
+        Function: main
+            Body:
+                Var: i = 0;
+                Do x = x + 2; 
+                While x < 9
+                EndDo.
+            EndBody.

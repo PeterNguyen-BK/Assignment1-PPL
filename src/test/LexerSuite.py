@@ -423,7 +423,7 @@ function < + qefbe and ; of o366c false array else < > and downto for J4981 : <>
     def test_83(self):
         self.assertTrue(TestLexer.checkLexeme(
         """1.2 1. .1 1e2 1.2E-2 1.2e-2 .1E2 9.0 12e8 0.33E-3 128e-42""",
-        """1.2,1.,.,1,1e2,1.2E-2,1.2e-2,.,1E2,9.0,12e8,0,.,33E-3,128e-42,<EOF>""",188))
+        """1.2,1.,.,1,1e2,1.2E-2,1.2e-2,.,1E2,9.0,12e8,0.33E-3,128e-42,<EOF>""",188))
     def test_84(self):
         self.assertTrue(TestLexer.checkLexeme(
         """e--12 e12 2E-15 99e 1 1. 1""",

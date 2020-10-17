@@ -1,1 +1,1 @@
-Var: x = 0XFF;
+Var: x
