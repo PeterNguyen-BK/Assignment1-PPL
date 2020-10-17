@@ -1,0 +1,8 @@
+
+        Function : foo
+            Parameter: t
+            Body:
+                Var: z[2] = {1,2};
+                z[2.] = 2;
+            EndBody.
+            

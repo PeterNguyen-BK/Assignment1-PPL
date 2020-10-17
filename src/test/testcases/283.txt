@@ -1,0 +1,7 @@
+
+        Function : main
+            paraMeter: t
+            Body:
+                foo()[2] = 5;
+            EndBody.
+            

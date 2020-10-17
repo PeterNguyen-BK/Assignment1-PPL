@@ -424,48 +424,59 @@ function < + qefbe and ; of o366c false array else < > and downto for J4981 : <>
         self.assertTrue(TestLexer.checkLexeme(
         """1.2 1. .1 1e2 1.2E-2 1.2e-2 .1E2 9.0 12e8 0.33E-3 128e-42""",
         """1.2,1.,.,1,1e2,1.2E-2,1.2e-2,.,1E2,9.0,12e8,0.33E-3,128e-42,<EOF>""",188))
+    
     def test_84(self):
         self.assertTrue(TestLexer.checkLexeme(
         """e--12 e12 2E-15 99e 1 1. 1""",
         """e,-,-,12,e12,2E-15,99,e,1,1.,1,<EOF>""",189))
+    
     def test_85(self):
         self.assertTrue(TestLexer.checkLexeme(
         """abc** Comment**""",
         """abc,<EOF>""",190))
+    
     def test_86(self):
         self.assertTrue(TestLexer.checkLexeme(
         """abc*qwe**Test**""",
         """abc,*,qwe,<EOF>""",191))
+    
     def test_87(self):
         self.assertTrue(TestLexer.checkLexeme(
         """abc**qwe**Test**""",
         """abc,<EOF>""",192))
+    
     def test_88(self):
         self.assertTrue(TestLexer.checkLexeme(
         """(*-101*) 11.+12*#$""",
         """(,*,-,101,*,),11.,+,12,*,Error Token #""",193))
+    
     def test_89(self):
         self.assertTrue(TestLexer.checkLexeme(
         """;j~%IbnQL!x-OBd""",
         """;,j,Error Token ~""",194))
+    
     def test_90(self):
         self.assertTrue(TestLexer.checkLexeme(
         """ "abcd \\b 
         efg""",
         """Unclosed String: abcd \\b 
 """,195))
+    
     def test_91(self):
         self.assertTrue(TestLexer.checkLexeme(
         """ "\\dado\\mado\\a """,
         """Illegal Escape In String: \\d""",196))
+    
     def test_92(self):
         self.assertTrue(TestLexer.checkLexeme(
         """kz-70S9+0s)f<)?0gg""",
         """kz,-,70,Error Token S""",197))
+    
     def test_93(self):
         self.assertTrue(TestLexer.checkLexeme(
         """if then else elif fOr dO WhIle breAk""",
         """if,then,else,elif,fOr,dO,Error Token W""",198))
+    
     def test_94(self):
         self.assertTrue(TestLexer.checkLexeme(
         """12.e0 -101 11.E 11.1e2""",

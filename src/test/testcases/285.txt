@@ -1,0 +1,7 @@
+
+        Function : main
+            Parameter: t
+            Body:
+                test = !x && y || t;
+            EndBody.
+            

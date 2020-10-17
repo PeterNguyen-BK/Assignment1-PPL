@@ -1,0 +1,15 @@
+
+        Function: swap;
+            Parameter: a,b
+            Body:
+                Var: temp;
+                temp = a;
+                a = b;
+                b = temp;
+        Function : main
+            Body:
+                Var: x = 2, y = 3;
+                swap(x,y);
+            EndBody.
+            EndBody.
+            

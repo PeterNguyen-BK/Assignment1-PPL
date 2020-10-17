@@ -69,7 +69,7 @@ exp4: not_op exp4 | exp5 ;
 exp5: dec_op exp5 | exp6 ;
 exp6: exp6 index_op | exp7 ;
 exp7: func_call | exp8 ;
-exp8: LP exp0 RP | ID | INTLIT | FLOATLIT | STRINGLIT | BOOLLIT ;
+exp8: LP exp0 RP | ID | INTLIT | FLOATLIT | BOOLLIT ;
 
 rela_op: EQ | NEQ | GT | LT | GTE | LTE | NEQFLOAT | GTFLOAT | LTFLOAT | GTEFLOAT | LTEFLOAT ;
 
@@ -90,7 +90,7 @@ index_op: (LS expression RS)+ ;
 expression: addexpr ;
 addexpr: addexpr (ADDINT | SUBINT | MULINT | DIVINT | MOD) funcexpr | funcexpr ;
 funcexpr: func_call | openrands ;
-openrands: LP expression RP | ID | INTLIT ; 
+openrands: LP expression RP | ID | INTLIT | ID (LS INTLIT RS)+ ; 
 
 //------Statements------
 
@@ -118,7 +118,7 @@ argumentList: (argument (COMMA argument)*)* ;
 
 argument: ID | exp0 ;
 
-return_stmt: RETURN exp0 SEMI ;
+return_stmt: RETURN (exp0 | STRINGLIT)? SEMI ;
 
 //------Identifiers------
 
@@ -272,7 +272,7 @@ STRINGLIT: '"' Characters* '"'
 		self.text = text[1:-1]
 	};
 
-ARRAYLIT: LB ARRAY COMMA ARRAYLIT RB | ARRAY ;
+ARRAYLIT: LB ARRAY (COMMA ARRAY)* RB | ARRAY ;
 
 ARRAY: LB (INTLIT (COMMA INTLIT)*)* RB
 	 | LB (FLOATLIT (COMMA FLOATLIT)*)* RB 

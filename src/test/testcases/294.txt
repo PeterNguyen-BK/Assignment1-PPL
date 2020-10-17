@@ -1,0 +1,7 @@
+
+        Function : main
+            Body:
+                Var: x; ** Declare variable **
+                x = 2 + 3; ** Assign value to x **
+            EndBody.
+            

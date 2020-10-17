@@ -483,7 +483,7 @@ class ParserSuite(unittest.TestCase):
                 Var: x;
                 x = "Hello" + "World";
             EndBody."""
-        expect = "successful"
+        expect = "Error on line 5 col 20: Hello"
         self.assertTrue(TestParser.checkParser(input,expect,253))
     
     def test_53(self):
@@ -675,6 +675,7 @@ class ParserSuite(unittest.TestCase):
                 Var: a = 15.6e3, b = 0.1234;
                 If a =/= b Then
                     If a >. b Then
+                        Var: i = 0;
                         Return a[i - 1];
                     Else
                         Return b -. a;
@@ -684,5 +685,488 @@ class ParserSuite(unittest.TestCase):
                 EndIf.
             EndBody.
             """
-        expect = "successful"
+        expect = "Error on line 8 col 24: Var"
         self.assertTrue(TestParser.checkParser(input,expect,266))
+    
+    def test_66(self):
+        """Miss variable"""
+        input = """
+        Function: main
+            Parameter: n,m
+            Body:
+                Var: a = 15.6e3, b = 0.1234, x[2] = {1.2,2.3e-5};
+                If (a =/= b) || (n == True) || (m == False) Then
+                    x[2] = a +. b -. x[1];
+                Else 
+                    Return x[1 + 1];  
+                EndIf.
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,267))
+    
+    def test_67(self):
+        """Miss variable"""
+        input = """
+        Function : foo
+            Parameter: t
+            Body:
+                Return t;
+            EndBody.
+        Function: main
+            Parameter: n,m
+            Body:
+                Var: x[5] = {1,2,3,4,5};
+                x[3 + foo(3)] = 2 + foo(4);
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,268))
+    
+    def test_68(self):
+        """Miss variable"""
+        input = """
+        Function : foo
+            Parameter: t
+            Body:
+                Return t;
+            EndBody.
+        Function: main
+            Parameter: n,m
+            Body:
+                Var: x[5][3] = {{1,2,3,4,5},{1,2,3}};
+                x[3 + foo(3)][3] = 2 + foo(4);
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,269))
+    
+    def test_69(self):
+        """Miss variable"""
+        input = """
+        Function : foo
+            Parameter: t
+            Body:
+                Return t;
+            EndBody.
+        Function: main
+            Parameter: n,m
+            Body:
+                Var: x[5][3][2] = {{1,2,3,4,5},{1,2,3},{5,6}};
+                x[3 + foo(3)][3][m + 3] = 2 + foo(4);
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,270))
+    
+    def test_70(self):
+        """Miss variable"""
+        input = """
+        Function : foo
+            Parameter: t
+            Body:
+                Return t;
+            EndBody.
+        Function: main
+            Parameter: n,m
+            Body:
+                Var: x[5][3][2] = {{1,2,3,4,5},{1,2,3},{5,6}};
+                x[3 + foo(3)][3][m + 3] = 2 + foo(4);
+                If x[2] == 5 Then
+                    Var: y;
+                EndIf.
+            EndBody.
+            """
+        expect = "Error on line 13 col 20: Var"
+        self.assertTrue(TestParser.checkParser(input,expect,271))
+    
+    def test_71(self):
+        """Miss variable"""
+        input = """
+        Function : foo
+            Parameter: t
+            Body:
+                Return t;
+            EndBody.
+        Function: main
+            Parameter: n,m
+            Body:
+                Var: x[5][3][2] = {{1,2,3,4,5},{1,2,3},{5,6}};
+                x[3 + foo(3)][3][m + 3] = 2 + foo(4);
+                If x[2] == 5 Then
+                    Var: y;
+                EndIf.
+            EndBody.
+            """
+        expect = "Error on line 13 col 20: Var"
+        self.assertTrue(TestParser.checkParser(input,expect,272))
+    
+    def test_72(self):
+        """Miss variable"""
+        input = """
+        Function : foo
+            Parameter: t
+            Body:
+                Return ;
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,273))
+    
+    def test_73(self):
+        """Miss variable"""
+        input = """
+        Function : foo
+            Parameter: t
+            Body:
+                Var: x = y;
+                Return x;
+            EndBody.
+            """
+        expect = "Error on line 5 col 25: y"
+        self.assertTrue(TestParser.checkParser(input,expect,274))
+    
+    def test_74(self):
+        """Miss variable"""
+        input = """
+        Function : foo
+            Parameter: t; x = 12, y = 12.
+            Body:
+                Var: z = 2;
+                Return x;
+            EndBody.
+            """
+        expect = "Error on line 3 col 24: ;"
+        self.assertTrue(TestParser.checkParser(input,expect,275))
+    
+    def test_75(self):
+        """Miss variable"""
+        input = """
+        Function : foo
+            Parameter: t
+            Body:
+                Var: z[2] = {1,2};
+                z[True] = 2;
+            EndBody.
+            """
+        expect = "Error on line 6 col 18: True"
+        self.assertTrue(TestParser.checkParser(input,expect,276))
+    
+    def test_76(self):
+        """Miss variable"""
+        input = """
+        Function : foo
+            Parameter: t
+            Body:
+                Var: z[2] = {1,2};
+                z[2.] = 2;
+            EndBody.
+            """
+        expect = "Error on line 6 col 18: 2."
+        self.assertTrue(TestParser.checkParser(input,expect,277))
+    
+    def test_77(self):
+        """Miss variable"""
+        input = """
+        Function : foo
+            Parameter: t
+            Body:
+                Var: z[2] = {1,2};
+                z["Two"] = 2;
+            EndBody.
+            """
+        expect = "Error on line 6 col 18: Two"
+        self.assertTrue(TestParser.checkParser(input,expect,278))
+    
+    def test_78(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Parameter: t
+            Body:
+                Var: a[5] = {1,2,3,4,5}, b[3][5] = {{1,2,3},{4,5,6,7,8}};
+                a[3 + foo(2)] = a[b[2][3]] + 4;
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,279))
+    
+    def test_79(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Parameter: t
+            Body:
+                Var: a[5] = {1,2,3,4,5}, b[3][5] = {{1,2,3},{4,5,6,7,8}};
+                a[[3] + foo(2)] = a[b[2][3]] + 4;
+            EndBody.
+            """
+        expect = "Error on line 6 col 18: ["
+        self.assertTrue(TestParser.checkParser(input,expect,280))
+    
+    def test_80(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Parameter: t
+            Body:
+                Body:
+                EndBody.
+            EndBody.
+            """
+        expect = "Error on line 5 col 16: Body"
+        self.assertTrue(TestParser.checkParser(input,expect,281))
+    
+    def test_81(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Parameter: t
+            Body:
+                foo()[2] = 5;
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,282))
+    
+    def test_82(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            paraMeter: t
+            Body:
+                foo()[2] = 5;
+            EndBody.
+            """
+        expect = "Error on line 3 col 12: paraMeter"
+        self.assertTrue(TestParser.checkParser(input,expect,283))
+    
+    def test_83(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Parameter: t
+            Body:
+                foo()[2] = 5 + 2 !2 -. 12. && 3;
+            EndBody.
+            """
+        expect = "Error on line 5 col 33: !"
+        self.assertTrue(TestParser.checkParser(input,expect,284))
+    
+    def test_84(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Parameter: t
+            Body:
+                test = !x && y || t;
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,285))
+    
+    def test_85(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Parameter: t
+            Body:
+                While True 
+                    Return t - 2;
+                EndWhile.
+            EndBody.
+            """
+        expect = "Error on line 6 col 20: Return"
+        self.assertTrue(TestParser.checkParser(input,expect,286))
+    
+    def test_86(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Parameter: t
+            Body:
+                Var: a;
+                a = "Hello" + 2;
+            EndBody.
+            """
+        expect = "Error on line 6 col 20: Hello"
+        self.assertTrue(TestParser.checkParser(input,expect,287))
+    
+    def test_87(self):
+        """Miss variable"""
+        input = """
+        Function: swap
+            Parameter: a,b
+            Body:
+                Var: temp;
+                temp = a;
+                a = b;
+                b = temp;
+            EndBody.
+        Function : main
+            Body:
+                Var: x = 2, y = 3;
+                swap(x,y);
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,288))
+    
+    def test_88(self):
+        """Miss variable"""
+        input = """
+        Function swap
+            Parameter: a,b
+            Body:
+                Var: temp;
+                temp = a;
+                a = b;
+                b = temp;
+            EndBody.
+        Function : main
+            Body:
+                Var: x = 2, y = 3;
+                swap(x,y);
+            EndBody.
+            """
+        expect = "Error on line 2 col 17: swap"
+        self.assertTrue(TestParser.checkParser(input,expect,289))
+    
+    def test_89(self):
+        """Miss variable"""
+        input = """
+        Function: swap
+            Parameter: a,b
+            Body:
+                Var: temp;
+                temp = a;
+                a = b;
+                b = temp;
+        Function : main
+            Body:
+                Var: x = 2, y = 3;
+                swap(x,y);
+            EndBody.
+            EndBody.
+            """
+        expect = "Error on line 9 col 8: Function"
+        self.assertTrue(TestParser.checkParser(input,expect,290))
+    
+    def test_90(self):
+        """Miss variable"""
+        input = """
+        Function: swap;
+            Parameter: a,b
+            Body:
+                Var: temp;
+                temp = a;
+                a = b;
+                b = temp;
+        Function : main
+            Body:
+                Var: x = 2, y = 3;
+                swap(x,y);
+            EndBody.
+            EndBody.
+            """
+        expect = "Error on line 2 col 22: ;"
+        self.assertTrue(TestParser.checkParser(input,expect,291))
+    
+    def test_91(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Body:
+                Var: x = 2, y = 3;
+                If x == 2 Then
+                    While y == 3 Do
+                        y = y + 1;
+                    EndWhile.
+                    If y != 3 Then 
+                        Break;
+                    EndIf.
+                EndIf.
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,292))
+    
+    def test_92(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Body:
+                Return foo();
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,293))
+    
+    def test_93(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Body:
+                Var: x; ** Declare variable **
+                x = 2 + 3; ** Assign value to x **
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,294))
+    
+    def test_94(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Body:
+                Var: x = 2; 
+                ** Declare variable 
+                   and assign value to x **
+            EndBody.
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,295))
+
+    def test_95(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Body:
+                Var: x = 2...2; 
+            EndBody.
+            """
+        expect = "Error on line 4 col 27: ."
+        self.assertTrue(TestParser.checkParser(input,expect,296))
+    
+    def test_96(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Body:
+                Var: x = 0oABC; 
+            EndBody.
+            """
+        expect = "Error on line 4 col 26: oABC"
+        self.assertTrue(TestParser.checkParser(input,expect,297))
+    
+    def test_97(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Body:
+                Var: x = 0xMNH; 
+            EndBody.
+            """
+        expect = "Error on line 4 col 26: xMNH"
+        self.assertTrue(TestParser.checkParser(input,expect,298))
+    
+    def test_98(self):
+        """Miss variable"""
+        input = """
+        Function : main
+            Body:
+                Var: x = 2 + 3; 
+            EndBody.
+            """
+        expect = "Error on line 4 col 27: +"
+        self.assertTrue(TestParser.checkParser(input,expect,299))
