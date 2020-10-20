@@ -1,1 +1,1 @@
-abc \n,<EOF>
+abc \r,<EOF>

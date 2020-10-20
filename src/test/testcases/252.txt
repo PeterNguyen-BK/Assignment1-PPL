@@ -1,6 +1,12 @@
 
         Function: main
             Body:
-                Var: x;
-                x = -5 - 6 + ! 5 - 9 - ! -(3 + ! -5);
+                Var: i = 0;
+                For (i = 0, i < 10, 2) Do
+                    writeln(i);
+                    Continue;
+                    If i == 5 Then 
+                        Break;
+                    EndIf.
+                EndFor.
             EndBody.

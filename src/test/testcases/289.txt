@@ -1,5 +1,5 @@
 
-        Function swap
+        Function: swap
             Parameter: a,b
             Body:
                 Var: temp;

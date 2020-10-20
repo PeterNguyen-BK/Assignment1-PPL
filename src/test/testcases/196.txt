@@ -1,1 +1,2 @@
- "\dado\mado\a 
+ "abcd \b 
+        efg

@@ -1,1 +1,1 @@
-While,a,>,b,Do,a,=,a,-,1,;,EndWhile,.,<EOF>
+For,(,i,=,0,,,i,<,10,,,2,),Do,writeln,(,i,),;,EndFor,.,<EOF>

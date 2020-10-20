@@ -4,9 +4,8 @@
                 Var: i = 0;
                 For (i = 0, i < 10, 2) Do
                     writeln(i);
-                    Continue;
                     If i == 5 Then 
-                        Break;
+                        break;
                     EndIf.
                 EndFor.
             EndBody.

@@ -2,4 +2,11 @@
         Function: main
             Parameter: n
             Body:
+                If n == 0 Then
+                    Return "Hihi";
+                ElseIf n == 1 Then
+                    Return "Huhu";
+                Else 
+                    Return "Haha";
+                EndIf.
             EndBody.

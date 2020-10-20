@@ -1,10 +1,10 @@
 
-        Function: gcd
-            Parameter: a,b
+        Function: fact
+            Parameter: n
             Body:
-                If b == 0 Then
-                    Return a;
+                If n == 0 Then
+                    Return 1;
                 Else
-                    Return gcd(b, a%b);
+                    Return n * fact(x);
                 EndIf.
             EndBody.

@@ -1,1 +1,1 @@
-abc,*,qwe,<EOF>
+abc,<EOF>

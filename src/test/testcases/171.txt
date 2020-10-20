@@ -8,10 +8,4 @@ Var: x;
                     Return n * fact (n - 1);
                 EndIf.
             EndBody.
-
-        Function: main
-            Body:
-                x = 10;
-                fact (x);
-            EndBody.
         

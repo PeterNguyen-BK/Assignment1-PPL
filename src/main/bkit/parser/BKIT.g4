@@ -1,3 +1,4 @@
+//Student ID: 1814220
 grammar BKIT;
 
 @lexer::header {
@@ -43,15 +44,13 @@ variable: ID ASSIGNMENT (INTLIT | FLOATLIT | STRINGLIT | BOOLLIT)
 
 //------Function Declaration
 
-func_declare: FUNCTION COLON ID (PARAMETER COLON paramList)? BODY COLON var_declare? statement* ENDBODY DOT ;
+func_declare: FUNCTION COLON ID (PARAMETER COLON paramList)? BODY COLON var_declare* statement* ENDBODY DOT ;
 
 paramList: ID (COMMA ID)* ;
 
 statement: assign_stmt 
 		 | if_stmt
-		 | for_stmt 
-		 | while_stmt 
-		 | doWhile_stmt 
+		 | for_stmt | while_stmt | doWhile_stmt 
 		 | break_stmt
 		 | continue_stmt
 		 | call_stmt
@@ -96,17 +95,17 @@ openrands: LP expression RP | ID | INTLIT | ID (LS INTLIT RS)+ ;
 
 func_call: ID LP argumentList RP ;
 
-if_stmt: IF exp0+ THEN statementList (elseIf_stmt)* (ELSE statementList)? ENDIF DOT ;
+if_stmt: IF exp0+ THEN statement* (elseIf_stmt)* (ELSE statement*)? ENDIF DOT ;
 
-elseIf_stmt: ELSEIF exp0 THEN statementList ;
+elseIf_stmt: ELSEIF exp0 THEN statement* ;
 
-statementList: statement* ;
+// statementList: statement* ;
 
-for_stmt: FOR LP ((ID | ID (LS INTLIT RS)+) ASSIGNMENT exp0) COMMA exp0 COMMA exp0 RP DO statementList ENDFOR DOT ;
+for_stmt: FOR LP ((ID | ID (LS INTLIT RS)+) ASSIGNMENT exp0) COMMA exp0 COMMA exp0 RP DO statement* ENDFOR DOT ;
 
-while_stmt: WHILE exp0 DO statementList ENDWHILE DOT ;
+while_stmt: WHILE exp0 DO statement* ENDWHILE DOT ;
 
-doWhile_stmt: DO statementList WHILE exp0 ENDDO DOT ;
+doWhile_stmt: DO statement* WHILE exp0 ENDDO DOT ;
 
 break_stmt: BREAK SEMI ;
 
@@ -281,7 +280,7 @@ ARRAY: LB (INTLIT (COMMA INTLIT)*)* RB
 
 //------Comment------
 
-BLOCK_COMMENT: '**' .* '**' -> skip ;
+BLOCK_COMMENT: '**' .*? '**' -> skip ;
 	
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 

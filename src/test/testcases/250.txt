@@ -5,7 +5,7 @@
                 For (i = 0, i < 10, 2) Do
                     writeln(i);
                     If i == 5 Then 
-                        break;
+                        Break;
                     EndIf.
                 EndFor.
             EndBody.

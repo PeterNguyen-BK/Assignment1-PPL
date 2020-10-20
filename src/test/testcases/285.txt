@@ -2,6 +2,6 @@
         Function : main
             Parameter: t
             Body:
-                test = !x && y || t;
+                foo()[2] = 5 + 2 !2 -. 12. && 3;
             EndBody.
             

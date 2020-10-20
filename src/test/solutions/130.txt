@@ -1,1 +1,1 @@
-abc,xyz,Unclosed String:  
+abc\'xyz,<EOF>

@@ -1,1 +1,1 @@
-Do,x,=,x,+,2,;,While,x,<,9,EndDo,.,<EOF>
+Error Token @

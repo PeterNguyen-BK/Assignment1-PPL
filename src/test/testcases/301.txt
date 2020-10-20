@@ -1,0 +1,10 @@
+
+        Function : main
+            Parameter: t
+            Body:
+                While t > 0 Do
+                    While True 
+                        Return t - 2;
+                    EndWhile.
+                EndWhile.
+            EndBody.

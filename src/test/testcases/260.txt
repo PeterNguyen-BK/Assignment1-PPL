@@ -1,10 +1,15 @@
 
-        Function: main
-            Parameter: n,m
+        Function: fact
+            Parameter: n
             Body:
-                If (n == 0) || (m == 0) Then
-                    Return n + m;
+                If n == 0 Then
+                    Return 1;
                 Else
-                    Return n - m;
+                    Return n * fact (n - 1);
                 EndIf.
+            EndBody.
+        Function: main
+            Parameter: a,b
+            Body:
+                a = fact(2 \ 4 * (2 + 4) -. 3.45e-5) + 1;
             EndBody.

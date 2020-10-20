@@ -1,1 +1,1 @@
-12,e,12.5,e,.,e02,e,-,3,<EOF>
+123,abc,cde,123,Error Token _

@@ -2,6 +2,7 @@
         Function : main
             Parameter: t
             Body:
-                foo()[2] = 5;
+                Body:
+                EndBody.
             EndBody.
             

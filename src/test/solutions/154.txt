@@ -1,1 +1,1 @@
-Break,;,<EOF>
+While,a,>,b,Do,a,=,a,-,1,;,EndWhile,.,<EOF>

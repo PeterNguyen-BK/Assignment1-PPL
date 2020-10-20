@@ -1,14 +1,15 @@
 
+        Function: swap;
+            Parameter: a,b
+            Body:
+                Var: temp;
+                temp = a;
+                a = b;
+                b = temp;
         Function : main
             Body:
                 Var: x = 2, y = 3;
-                If x == 2 Then
-                    While y == 3 Do
-                        y = y + 1;
-                    EndWhile.
-                    If y != 3 Then 
-                        Break;
-                    EndIf.
-                EndIf.
+                swap(x,y);
+            EndBody.
             EndBody.
             

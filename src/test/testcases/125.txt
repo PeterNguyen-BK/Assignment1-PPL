@@ -1,1 +1,1 @@
-_function
+a = 4 + b

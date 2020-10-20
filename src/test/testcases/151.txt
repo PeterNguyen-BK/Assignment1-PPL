@@ -1,1 +1,2 @@
-For (i = 0, i < 10, 2)
+If a>b Then a + b
+        ElseIf a < b Then b - a

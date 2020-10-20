@@ -1,6 +1,6 @@
 
         Function : main
             Body:
-                Var: x = 0xMNH; 
+                Var: x = 0oABC; 
             EndBody.
             

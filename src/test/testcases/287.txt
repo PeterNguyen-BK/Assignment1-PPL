@@ -2,7 +2,8 @@
         Function : main
             Parameter: t
             Body:
-                Var: a;
-                a = "Hello" + 2;
+                While True 
+                    Return t - 2;
+                EndWhile.
             EndBody.
             

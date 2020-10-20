@@ -1,1 +1,1 @@
- "abc\"xyz" 
+function_ var__ declare___

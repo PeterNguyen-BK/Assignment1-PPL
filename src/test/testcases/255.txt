@@ -2,5 +2,6 @@
         Function: main
             Body:
                 Var: x, y;
-                x = (2 + 3) * 4 - 5 \ 10 +. 12.2;
+                x = (2 == 3);
+                y = (2 != 3);
             EndBody.

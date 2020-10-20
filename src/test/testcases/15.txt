@@ -1,1 +1,1 @@
-Var x = True
+ "function \n declare \b \t" 

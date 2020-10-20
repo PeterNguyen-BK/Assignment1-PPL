@@ -1,1 +1,1 @@
-Var: x[2] = {True,False};
+Var: x = 0.123213;

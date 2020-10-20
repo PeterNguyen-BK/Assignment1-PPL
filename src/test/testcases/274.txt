@@ -2,7 +2,6 @@
         Function : foo
             Parameter: t
             Body:
-                Var: x = y;
-                Return x;
+                Return ;
             EndBody.
             

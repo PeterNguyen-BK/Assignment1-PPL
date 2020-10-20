@@ -1,9 +1,8 @@
 
         Function: main
             Body:
-                Var: i = 0;
-                While (i < 5) Do
-                    a[i + foo(3)] = b +. 1.0;
-                    i = i + 1;
-                EndWhile.
+                Var i = 0;
+                For (i = 0, i < 10, 2) Do
+                    writeln(i);
+                EndFor.
             EndBody.

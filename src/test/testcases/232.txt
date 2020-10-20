@@ -1,10 +1,1 @@
-
-        Function: fact
-            Parameter: n
-            Body:
-                If n == 0 Then
-                    Return 1;
-                Else
-                    Return n - 1;
-                EndIf.
-            EndBody.
+Var: x[2 = {1,2};

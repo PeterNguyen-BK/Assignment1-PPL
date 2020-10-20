@@ -1,1 +1,1 @@
- "abc'"xyz 
+function var declare int____

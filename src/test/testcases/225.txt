@@ -1,1 +1,1 @@
-Varr: x = 0xABC;
+Var: x = 0xABC;

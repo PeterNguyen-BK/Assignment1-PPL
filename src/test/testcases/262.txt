@@ -2,6 +2,5 @@
         Function: main
             Parameter: n,m
             Body:
-                Return n || m;
-            EndBody.
+                Return n + m;
             

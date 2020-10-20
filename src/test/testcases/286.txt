@@ -2,8 +2,6 @@
         Function : main
             Parameter: t
             Body:
-                While True 
-                    Return t - 2;
-                EndWhile.
+                test = !x && y || t;
             EndBody.
             

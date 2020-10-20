@@ -1,1 +1,1 @@
-var: x = 10;
+Var: x = 12.e5, y = "test, z = 2;

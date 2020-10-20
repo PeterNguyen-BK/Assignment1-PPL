@@ -11,5 +11,5 @@
         Function: main
             Parameter: a,b
             Body:
-                a = fact(5) + 2 \ 4 * (2 + 4) -. 3.45e-5;
+                a = fact(5);
             EndBody.

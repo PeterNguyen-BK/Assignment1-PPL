@@ -4,9 +4,8 @@
             Body:
                 Var: a = 15.6e3, b = 0.1234;
                 If a =/= b Then
-                    If a >. b Then
-                        Var: i = 0;
-                        Return a[i - 1];
+                    If a >. b Then 
+                        Return a -. b;
                     Else
                         Return b -. a;
                     EndIf.

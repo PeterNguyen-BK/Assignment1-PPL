@@ -2,200 +2,200 @@ import unittest
 from TestUtils import TestParser
 
 class ParserSuite(unittest.TestCase):
-    def test_simple_program(self):
-        """Simple program: int main() {} """
+    def test_1(self):
+        """Declaration"""
         input = """Var: x;"""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,200))
+        self.assertTrue(TestParser.checkParser(input,expect,201))
     
-    def test_wrong_miss_close(self):
+    def test_2(self):
         """Miss variable"""
         input = """Var: ;"""
         expect = "Error on line 1 col 5: ;"
-        self.assertTrue(TestParser.checkParser(input,expect,201))
-
-    def test_1(self):
-        """Miss variable"""
-        input = """Var: x"""
-        expect = "Error on line 1 col 6: <EOF>"
         self.assertTrue(TestParser.checkParser(input,expect,202))
 
-    def test_2(self):
-        """Miss variable"""
+    def test_3(self):
+        """Miss semicolon"""
+        input = """Var: x"""
+        expect = "Error on line 1 col 6: <EOF>"
+        self.assertTrue(TestParser.checkParser(input,expect,203))
+
+    def test_4(self):
+        """Initial value declaration"""
         input = """Var: x = 5;"""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,203))
-    
-    def test_3(self):
-        """Miss variable"""
-        input = """Var x,y,z;"""
-        expect = "Error on line 1 col 4: x"
         self.assertTrue(TestParser.checkParser(input,expect,204))
     
-    def test_4(self):
-        """Miss variable"""
-        input = """Var: x = 5, y;"""
-        expect = "successful"
+    def test_5(self):
+        """Many variable declaration"""
+        input = """Var x,y,z;"""
+        expect = "Error on line 1 col 4: x"
         self.assertTrue(TestParser.checkParser(input,expect,205))
     
-    def test_5(self):
-        """Miss variable"""
-        input = """Var: x = 5 y;"""
-        expect = "Error on line 1 col 11: y"
+    def test_6(self):
+        """Decalration"""
+        input = """Var: x = 5, y;"""
+        expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,206))
     
-    def test_6(self):
-        """Miss variable"""
-        input = """Var: x = 5, y, z = 7;"""
-        expect = "successful"
+    def test_7(self):
+        """Error declaration"""
+        input = """Var: x = 5 y;"""
+        expect = "Error on line 1 col 11: y"
         self.assertTrue(TestParser.checkParser(input,expect,207))
     
-    def test_7(self):
-        """Miss variable"""
-        input = """Var: x = "hello", y = 5;"""
+    def test_8(self):
+        """Declaration"""
+        input = """Var: x = 5, y, z = 7;"""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,208))
     
-    def test_8(self):
-        """Miss variable"""
-        input = """Var: x = 12.e5, y = "test, z = 2;"""
-        expect = "test, z = 2;"
+    def test_9(self):
+        """Declaration"""
+        input = """Var: x = "hello", y = 5;"""
+        expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,209))
     
-    def test_9(self):
-        """Miss variable"""
-        input = """var: x = 10;"""
-        expect = "Error on line 1 col 0: var"
+    def test_10(self):
+        """Declaration"""
+        input = """Var: x = 12.e5, y = "test, z = 2;"""
+        expect = "test, z = 2;"
         self.assertTrue(TestParser.checkParser(input,expect,210))
     
-    def test_10(self):
-        """Miss variable"""
-        input = """Var: x = True;"""
-        expect = "successful"
+    def test_11(self):
+        """Error keyword"""
+        input = """var: x = 10;"""
+        expect = "Error on line 1 col 0: var"
         self.assertTrue(TestParser.checkParser(input,expect,211))
     
-    def test_11(self):
-        """Miss variable"""
-        input = """Var: x = true, y = False;"""
-        expect = "Error on line 1 col 9: true"
+    def test_12(self):
+        """Declaration"""
+        input = """Var: x = True;"""
+        expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,212))
     
-    def test_12(self):
-        """Miss variable"""
-        input = """Var: x == True;"""
-        expect = "Error on line 1 col 7: =="
+    def test_13(self):
+        """Error literal"""
+        input = """Var: x = true, y = False;"""
+        expect = "Error on line 1 col 9: true"
         self.assertTrue(TestParser.checkParser(input,expect,213))
     
-    def test_13(self):
-        """Miss variable"""
-        input = """Var: x, y, z, d e;"""
-        expect = "Error on line 1 col 16: e"
+    def test_14(self):
+        """Error declaration"""
+        input = """Var: x == True;"""
+        expect = "Error on line 1 col 7: =="
         self.assertTrue(TestParser.checkParser(input,expect,214))
     
-    def test_14(self):
-        """Miss variable"""
-        input = """Var: x[1] = {10};"""
-        expect = "successful"
+    def test_15(self):
+        """Miss comma"""
+        input = """Var: x, y, z, d e;"""
+        expect = "Error on line 1 col 16: e"
         self.assertTrue(TestParser.checkParser(input,expect,215))
     
-    def test_15(self):
-        """Miss variable"""
-        input = """Var: x[-2] = {1,2};"""
-        expect = "Error on line 1 col 7: -"
+    def test_16(self):
+        """Array declaration"""
+        input = """Var: x[1] = {10};"""
+        expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,216))
     
-    def test_16(self):
-        """Miss variable"""
-        input = """Var: x[2][3] = {{1,2},{1,2,3}};"""
-        expect = "successful"
+    def test_17(self):
+        """Error dimension"""
+        input = """Var: x[-2] = {1,2};"""
+        expect = "Error on line 1 col 7: -"
         self.assertTrue(TestParser.checkParser(input,expect,217))
     
-    def test_17(self):
-        """Miss variable"""
-        input = """Var: x = {1,2};"""
-        expect = "Error on line 1 col 9: {1,2}"
-        self.assertTrue(TestParser.checkParser(input,expect,218))
-
     def test_18(self):
-        """Miss variable"""
-        input = """Var: x[2][3] = {{1,2},{1,2,3};"""
-        expect = "Error on line 1 col 15: {"
-        self.assertTrue(TestParser.checkParser(input,expect,219))
+        """Multi-dimension array"""
+        input = """Var: x[2][3] = {{1,2},{1,2,3}};"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,218))
     
     def test_19(self):
-        """Miss variable"""
-        input = """Var: x[2] = {"Text1","Text2"};"""
-        expect = "successful"
+        """Error dimension lower bound"""
+        input = """Var: x = {1,2};"""
+        expect = "Error on line 1 col 9: {1,2}"
+        self.assertTrue(TestParser.checkParser(input,expect,219))
+
+    def test_20(self):
+        """Miss bracket"""
+        input = """Var: x[2][3] = {{1,2},{1,2,3};"""
+        expect = "Error on line 1 col 15: {"
         self.assertTrue(TestParser.checkParser(input,expect,220))
     
-    def test_20(self):
-        """Miss variable"""
-        input = """Var: x[1] = {12e-5,12e-5};"""
+    def test_21(self):
+        """Array string declaration"""
+        input = """Var: x[2] = {"Text1","Text2"};"""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,221))
     
-    def test_21(self):
-        """Miss variable"""
-        input = """Var: x = 12e;"""
-        expect = "Error on line 1 col 11: e"
+    def test_22(self):
+        """Array float declaration"""
+        input = """Var: x[1] = {12e-5,12e-5};"""
+        expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,222))
     
-    def test_22(self):
-        """Miss variable"""
-        input = """Var: x = 012123;"""
-        expect = "Error on line 1 col 10: 12123"
+    def test_23(self):
+        """Error float literal"""
+        input = """Var: x = 12e;"""
+        expect = "Error on line 1 col 11: e"
         self.assertTrue(TestParser.checkParser(input,expect,223))
     
-    def test_23(self):
-        """Miss variable"""
-        input = """Var: x = 0xABC;"""
-        expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,224))
-
     def test_24(self):
-        """Miss variable"""
-        input = """Varr: x = 0xABC;"""
-        expect = "Error on line 1 col 3: r"
-        self.assertTrue(TestParser.checkParser(input,expect,225))
+        """Error integer literal"""
+        input = """Var: x = 012123;"""
+        expect = "Error on line 1 col 10: 12123"
+        self.assertTrue(TestParser.checkParser(input,expect,224))
     
     def test_25(self):
-        """Miss variable"""
-        input = """Var: x156 = 0xABC;"""
+        """Hexadecimal"""
+        input = """Var: x = 0xABC;"""
         expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,225))
+
+    def test_26(self):
+        """Error keyword"""
+        input = """Varr: x = 0xABC;"""
+        expect = "Error on line 1 col 3: r"
         self.assertTrue(TestParser.checkParser(input,expect,226))
     
-    def test_26(self):
-        """Miss variable"""
-        input = """Var: 123 = 0xABC;"""
-        expect = "Error on line 1 col 5: 123"
+    def test_27(self):
+        """Test identifier"""
+        input = """Var: x156 = 0xABC;"""
+        expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,227))
     
-    def test_27(self):
-        """Miss variable"""
-        input = """Var: x123 = 0o123;"""
-        expect = "successful"
+    def test_28(self):
+        """Error identifier"""
+        input = """Var: 123 = 0xABC;"""
+        expect = "Error on line 1 col 5: 123"
         self.assertTrue(TestParser.checkParser(input,expect,228))
     
-    def test_28(self):
-        """Miss variable"""
-        input = """Var: x = 0.123213;"""
+    def test_29(self):
+        """Octal"""
+        input = """Var: x123 = 0o123;"""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,229))
     
-    def test_29(self):
-        """Miss variable"""
-        input = """Var: x[2] = {True,False};"""
+    def test_30(self):
+        """Float literal"""
+        input = """Var: x = 0.123213;"""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,230))
     
-    def test_30(self):
-        """Miss variable"""
-        input = """Var: x[2 = {1,2};"""
-        expect = "Error on line 1 col 9: ="
+    def test_31(self):
+        """Boolean literal declaration"""
+        input = """Var: x[2] = {True,False};"""
+        expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,231))
     
-    def test_31(self):
-        """Miss variable"""
+    def test_32(self):
+        """Miss square bracket"""
+        input = """Var: x[2 = {1,2};"""
+        expect = "Error on line 1 col 9: ="
+        self.assertTrue(TestParser.checkParser(input,expect,232))
+    
+    def test_33(self):
+        """Test if statement"""
         input = """
         Function: fact
             Parameter: n
@@ -207,10 +207,10 @@ class ParserSuite(unittest.TestCase):
                 EndIf.
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,232))
+        self.assertTrue(TestParser.checkParser(input,expect,233))
     
-    def test_32(self):
-        """Miss variable"""
+    def test_34(self):
+        """Test assign statement and function call"""
         input = """
         Function: main
             Body:
@@ -218,10 +218,10 @@ class ParserSuite(unittest.TestCase):
                 fact(x);
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,233))
+        self.assertTrue(TestParser.checkParser(input,expect,234))
     
-    def test_33(self):
-        """Miss variable"""
+    def test_35(self):
+        """Miss semicolon"""
         input = """
         Function: fact
             Parameter: n
@@ -233,10 +233,10 @@ class ParserSuite(unittest.TestCase):
                 EndIf.
             EndBody."""
         expect = "Error on line 7 col 16: Else"
-        self.assertTrue(TestParser.checkParser(input,expect,234))
+        self.assertTrue(TestParser.checkParser(input,expect,235))
     
-    def test_34(self):
-        """Miss variable"""
+    def test_36(self):
+        """Error keyword"""
         input = """
         Function: fact
             Parameter: n
@@ -248,10 +248,10 @@ class ParserSuite(unittest.TestCase):
                 EndIf.
             EndBody."""
         expect = "Error on line 5 col 19: n"
-        self.assertTrue(TestParser.checkParser(input,expect,235))
+        self.assertTrue(TestParser.checkParser(input,expect,236))
     
-    def test_35(self):
-        """Miss variable"""
+    def test_37(self):
+        """Test return statement"""
         input = """
         Function: fact
             Parameter: n
@@ -263,10 +263,10 @@ class ParserSuite(unittest.TestCase):
                 EndIf.
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,236))
+        self.assertTrue(TestParser.checkParser(input,expect,237))
     
-    def test_36(self):
-        """Miss variable"""
+    def test_38(self):
+        """Test return statement and function call"""
         input = """
         Function: gcd
             Parameter: a,b
@@ -278,10 +278,10 @@ class ParserSuite(unittest.TestCase):
                 EndIf.
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,237))
+        self.assertTrue(TestParser.checkParser(input,expect,238))
     
-    def test_37(self):
-        """Miss variable"""
+    def test_39(self):
+        """Test return statement with string"""
         input = """
         Function: main
             Parameter: n
@@ -295,30 +295,30 @@ class ParserSuite(unittest.TestCase):
                 EndIf.
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,238))
+        self.assertTrue(TestParser.checkParser(input,expect,239))
     
-    def test_38(self):
-        """Miss variable"""
+    def test_40(self):
+        """Nullable body"""
         input = """
         Function: main
             Parameter: n
             Body:
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,239))
+        self.assertTrue(TestParser.checkParser(input,expect,240))
     
-    def test_39(self):
-        """Miss variable"""
+    def test_41(self):
+        """Declaration in body"""
         input = """
         Function: main
             Body:
                 Var: x = 1, y, z = 12.e5;
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,240))
+        self.assertTrue(TestParser.checkParser(input,expect,241))
     
-    def test_40(self):
-        """Miss variable"""
+    def test_42(self):
+        """Test statement"""
         input = """
         Function: main
             Body:
@@ -326,10 +326,10 @@ class ParserSuite(unittest.TestCase):
                 Return x + y + z;
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,241))
+        self.assertTrue(TestParser.checkParser(input,expect,242))
     
-    def test_41(self):
-        """Miss variable"""
+    def test_43(self):
+        """Test for statement"""
         input = """
         Function: main
             Body:
@@ -338,10 +338,10 @@ class ParserSuite(unittest.TestCase):
                 EndFor.
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,242))
+        self.assertTrue(TestParser.checkParser(input,expect,243))
     
-    def test_42(self):
-        """Miss variable"""
+    def test_44(self):
+        """Miss dot"""
         input = """
         Function: main
             Body:
@@ -350,10 +350,10 @@ class ParserSuite(unittest.TestCase):
                 EndFor.
             EndBody"""
         expect = "Error on line 7 col 19: <EOF>"
-        self.assertTrue(TestParser.checkParser(input,expect,243))
+        self.assertTrue(TestParser.checkParser(input,expect,244))
     
-    def test_43(self):
-        """Miss variable"""
+    def test_45(self):
+        """Miss dot"""
         input = """
         Function: main
             Body:
@@ -362,23 +362,23 @@ class ParserSuite(unittest.TestCase):
                 EndFor
             EndBody."""
         expect = "Error on line 7 col 12: EndBody"
-        self.assertTrue(TestParser.checkParser(input,expect,244))
+        self.assertTrue(TestParser.checkParser(input,expect,245))
     
-    def test_44(self):
-        """Miss variable"""
+    def test_46(self):
+        """Miss colon"""
         input = """
         Function: main
             Body:
-                Var: i = 0;
+                Var i = 0;
                 For (i = 0, i < 10, 2) Do
                     writeln(i);
-                EndFor
+                EndFor.
             EndBody."""
-        expect = "Error on line 8 col 12: EndBody"
-        self.assertTrue(TestParser.checkParser(input,expect,245))
+        expect = "Error on line 4 col 20: i"
+        self.assertTrue(TestParser.checkParser(input,expect,246))
     
-    def test_45(self):
-        """Miss variable"""
+    def test_47(self):
+        """Test operators"""
         input = """
         Function: main
             Body:
@@ -389,10 +389,10 @@ class ParserSuite(unittest.TestCase):
                 EndWhile.
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,246))
+        self.assertTrue(TestParser.checkParser(input,expect,247))
     
-    def test_46(self):
-        """Miss variable"""
+    def test_48(self):
+        """Test operators"""
         input = """
         Function: main
             Body:
@@ -402,10 +402,10 @@ class ParserSuite(unittest.TestCase):
                 EndDo.
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,247))
+        self.assertTrue(TestParser.checkParser(input,expect,248))
     
-    def test_47(self):
-        """Miss variable"""
+    def test_49(self):
+        """Test operators"""
         input = """
         Function: main
             Body:
@@ -413,10 +413,10 @@ class ParserSuite(unittest.TestCase):
                 v = (4. \. 3.) *. 3.14 *. r *. r *. r;
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,248))
+        self.assertTrue(TestParser.checkParser(input,expect,249))
 
-    def test_48(self):
-        """Miss variable"""
+    def test_50(self):
+        """Test break statement"""
         input = """
         Function: main
             Body:
@@ -429,10 +429,10 @@ class ParserSuite(unittest.TestCase):
                 EndFor.
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,249))
+        self.assertTrue(TestParser.checkParser(input,expect,250))
     
-    def test_49(self):
-        """Miss variable"""
+    def test_51(self):
+        """Error keyword"""
         input = """
         Function: main
             Body:
@@ -445,10 +445,10 @@ class ParserSuite(unittest.TestCase):
                 EndFor.
             EndBody."""
         expect = "Error on line 8 col 29: ;"
-        self.assertTrue(TestParser.checkParser(input,expect,250))
+        self.assertTrue(TestParser.checkParser(input,expect,251))
     
-    def test_50(self):
-        """Miss variable"""
+    def test_52(self):
+        """Test continue statement"""
         input = """
         Function: main
             Body:
@@ -462,10 +462,10 @@ class ParserSuite(unittest.TestCase):
                 EndFor.
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,251))
+        self.assertTrue(TestParser.checkParser(input,expect,252))
     
-    def test_51(self):
-        """Miss variable"""
+    def test_53(self):
+        """Test operators"""
         input = """
         Function: main
             Body:
@@ -473,21 +473,21 @@ class ParserSuite(unittest.TestCase):
                 x = -5 - 6 + ! 5 - 9 - ! -(3 + ! -5);
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,252))
+        self.assertTrue(TestParser.checkParser(input,expect,253))
     
-    def test_52(self):
-        """Miss variable"""
+    def test_54(self):
+        """Error assign statement"""
         input = """
         Function: main
             Body:
                 Var: x;
-                x = "Hello" + "World";
+                x = "Hello"  "World";
             EndBody."""
         expect = "Error on line 5 col 20: Hello"
-        self.assertTrue(TestParser.checkParser(input,expect,253))
+        self.assertTrue(TestParser.checkParser(input,expect,254))
     
-    def test_53(self):
-        """Miss variable"""
+    def test_55(self):
+        """Test operators"""
         input = """
         Function: main
             Body:
@@ -496,10 +496,10 @@ class ParserSuite(unittest.TestCase):
                 y = (2 != 3);
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,254))
+        self.assertTrue(TestParser.checkParser(input,expect,255))
     
-    def test_54(self):
-        """Miss variable"""
+    def test_56(self):
+        """Test operators"""
         input = """
         Function: main
             Body:
@@ -507,10 +507,10 @@ class ParserSuite(unittest.TestCase):
                 x = (2 + 3) * 4 - 5 \ 10 +. 12.2;
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,255))
+        self.assertTrue(TestParser.checkParser(input,expect,256))
     
-    def test_55(self):
-        """Miss variable"""
+    def test_57(self):
+        """Test array literal and index operator"""
         input = """
         Function: main
             Parameter: a,b
@@ -520,10 +520,10 @@ class ParserSuite(unittest.TestCase):
                 b = x[1] + y[2] + a;
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,256))
+        self.assertTrue(TestParser.checkParser(input,expect,257))
     
-    def test_56(self):
-        """Miss variable"""
+    def test_58(self):
+        """Test complex function"""
         input = """
         Function: fact
             Parameter: n
@@ -540,10 +540,10 @@ class ParserSuite(unittest.TestCase):
                 a = fact(5);
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,257))
+        self.assertTrue(TestParser.checkParser(input,expect,258))
     
-    def test_57(self):
-        """Miss variable"""
+    def test_59(self):
+        """Test operators"""
         input = """
         Function: fact
             Parameter: n
@@ -560,10 +560,10 @@ class ParserSuite(unittest.TestCase):
                 a = fact(5) + 2 \ 4 * (2 + 4) -. 3.45e-5;
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,258))
+        self.assertTrue(TestParser.checkParser(input,expect,259))
     
-    def test_58(self):
-        """Miss variable"""
+    def test_60(self):
+        """Test function call"""
         input = """
         Function: fact
             Parameter: n
@@ -580,10 +580,10 @@ class ParserSuite(unittest.TestCase):
                 a = fact(2 \ 4 * (2 + 4) -. 3.45e-5) + 1;
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,259))
+        self.assertTrue(TestParser.checkParser(input,expect,260))
     
-    def test_59(self):
-        """Miss variable"""
+    def test_61(self):
+        """Test if statement with many condition"""
         input = """
         Function: main
             Parameter: n,m
@@ -595,10 +595,10 @@ class ParserSuite(unittest.TestCase):
                 EndIf.
             EndBody."""
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,260))
+        self.assertTrue(TestParser.checkParser(input,expect,261))
     
-    def test_60(self):
-        """Miss variable"""
+    def test_62(self):
+        """Miss EndBody"""
         input = """
         Function: main
             Parameter: n,m
@@ -606,10 +606,10 @@ class ParserSuite(unittest.TestCase):
                 Return n + m;
             """
         expect = "Error on line 6 col 12: <EOF>"
-        self.assertTrue(TestParser.checkParser(input,expect,261))
+        self.assertTrue(TestParser.checkParser(input,expect,262))
     
-    def test_61(self):
-        """Miss variable"""
+    def test_63(self):
+        """Test relational operators"""
         input = """
         Function: main
             Parameter: n,m
@@ -618,10 +618,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,262))
+        self.assertTrue(TestParser.checkParser(input,expect,263))
     
-    def test_62(self):
-        """Miss variable"""
+    def test_64(self):
+        """Test relational operators"""
         input = """
         Function: main
             Parameter: n,m
@@ -630,10 +630,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,263))
+        self.assertTrue(TestParser.checkParser(input,expect,264))
     
-    def test_63(self):
-        """Miss variable"""
+    def test_65(self):
+        """Test relational operator"""
         input = """
         Function: main
             Parameter: n,m
@@ -643,10 +643,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,264))
+        self.assertTrue(TestParser.checkParser(input,expect,265))
     
-    def test_64(self):
-        """Miss variable"""
+    def test_66(self):
+        """Nested if statement"""
         input = """
         Function: main
             Parameter: n,m
@@ -664,10 +664,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,265))
+        self.assertTrue(TestParser.checkParser(input,expect,266))
     
-    def test_65(self):
-        """Miss variable"""
+    def test_67(self):
+        """Error var declaration in body"""
         input = """
         Function: main
             Parameter: n,m
@@ -686,10 +686,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 8 col 24: Var"
-        self.assertTrue(TestParser.checkParser(input,expect,266))
+        self.assertTrue(TestParser.checkParser(input,expect,267))
     
-    def test_66(self):
-        """Miss variable"""
+    def test_68(self):
+        """Test if statement"""
         input = """
         Function: main
             Parameter: n,m
@@ -703,10 +703,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,267))
+        self.assertTrue(TestParser.checkParser(input,expect,268))
     
-    def test_67(self):
-        """Miss variable"""
+    def test_69(self):
+        """Test index operator"""
         input = """
         Function : foo
             Parameter: t
@@ -721,10 +721,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,268))
+        self.assertTrue(TestParser.checkParser(input,expect,269))
     
-    def test_68(self):
-        """Miss variable"""
+    def test_70(self):
+        """Test array literal and index operator"""
         input = """
         Function : foo
             Parameter: t
@@ -739,10 +739,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,269))
+        self.assertTrue(TestParser.checkParser(input,expect,270))
     
-    def test_69(self):
-        """Miss variable"""
+    def test_71(self):
+        """Test array literal and index operator"""
         input = """
         Function : foo
             Parameter: t
@@ -757,31 +757,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,270))
-    
-    def test_70(self):
-        """Miss variable"""
-        input = """
-        Function : foo
-            Parameter: t
-            Body:
-                Return t;
-            EndBody.
-        Function: main
-            Parameter: n,m
-            Body:
-                Var: x[5][3][2] = {{1,2,3,4,5},{1,2,3},{5,6}};
-                x[3 + foo(3)][3][m + 3] = 2 + foo(4);
-                If x[2] == 5 Then
-                    Var: y;
-                EndIf.
-            EndBody.
-            """
-        expect = "Error on line 13 col 20: Var"
         self.assertTrue(TestParser.checkParser(input,expect,271))
     
-    def test_71(self):
-        """Miss variable"""
+    def test_72(self):
+        """Error var declaration"""
         input = """
         Function : foo
             Parameter: t
@@ -801,8 +780,28 @@ class ParserSuite(unittest.TestCase):
         expect = "Error on line 13 col 20: Var"
         self.assertTrue(TestParser.checkParser(input,expect,272))
     
-    def test_72(self):
-        """Miss variable"""
+    def test_73(self):
+        """Error index operator"""
+        input = """
+        Function : foo
+            Parameter: t
+            Body:
+                Return t;
+            EndBody.
+        Function: main
+            Parameter: n,m
+            Body:
+                Var: x[5][3][2] = {{1,2,3,4,5},{1,2,3},{5,6}};
+                x[3 + foo(3)]3[m + 3] = 2 + foo(4);
+                If x[2] == 5 Then
+                EndIf.
+            EndBody.
+            """
+        expect = "Error on line 11 col 29: 3"
+        self.assertTrue(TestParser.checkParser(input,expect,273))
+    
+    def test_74(self):
+        """NUllable return"""
         input = """
         Function : foo
             Parameter: t
@@ -811,10 +810,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,273))
+        self.assertTrue(TestParser.checkParser(input,expect,274))
     
-    def test_73(self):
-        """Miss variable"""
+    def test_75(self):
+        """Error declaration"""
         input = """
         Function : foo
             Parameter: t
@@ -824,10 +823,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 5 col 25: y"
-        self.assertTrue(TestParser.checkParser(input,expect,274))
+        self.assertTrue(TestParser.checkParser(input,expect,275))
     
-    def test_74(self):
-        """Miss variable"""
+    def test_76(self):
+        """Error semicolon in parameter"""
         input = """
         Function : foo
             Parameter: t; x = 12, y = 12.
@@ -837,10 +836,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 3 col 24: ;"
-        self.assertTrue(TestParser.checkParser(input,expect,275))
+        self.assertTrue(TestParser.checkParser(input,expect,276))
     
-    def test_75(self):
-        """Miss variable"""
+    def test_77(self):
+        """Error index operator"""
         input = """
         Function : foo
             Parameter: t
@@ -850,10 +849,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 6 col 18: True"
-        self.assertTrue(TestParser.checkParser(input,expect,276))
+        self.assertTrue(TestParser.checkParser(input,expect,277))
     
-    def test_76(self):
-        """Miss variable"""
+    def test_78(self):
+        """Error index operator"""
         input = """
         Function : foo
             Parameter: t
@@ -863,10 +862,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 6 col 18: 2."
-        self.assertTrue(TestParser.checkParser(input,expect,277))
+        self.assertTrue(TestParser.checkParser(input,expect,278))
     
-    def test_77(self):
-        """Miss variable"""
+    def test_79(self):
+        """Error index operator"""
         input = """
         Function : foo
             Parameter: t
@@ -876,10 +875,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 6 col 18: Two"
-        self.assertTrue(TestParser.checkParser(input,expect,278))
+        self.assertTrue(TestParser.checkParser(input,expect,279))
     
-    def test_78(self):
-        """Miss variable"""
+    def test_80(self):
+        """Array literal and index operator"""
         input = """
         Function : main
             Parameter: t
@@ -889,10 +888,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,279))
+        self.assertTrue(TestParser.checkParser(input,expect,280))
     
-    def test_79(self):
-        """Miss variable"""
+    def test_81(self):
+        """Miss square bracket in index opearator"""
         input = """
         Function : main
             Parameter: t
@@ -902,10 +901,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 6 col 18: ["
-        self.assertTrue(TestParser.checkParser(input,expect,280))
+        self.assertTrue(TestParser.checkParser(input,expect,281))
     
-    def test_80(self):
-        """Miss variable"""
+    def test_82(self):
+        """Error on body of function"""
         input = """
         Function : main
             Parameter: t
@@ -915,10 +914,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 5 col 16: Body"
-        self.assertTrue(TestParser.checkParser(input,expect,281))
+        self.assertTrue(TestParser.checkParser(input,expect,282))
     
-    def test_81(self):
-        """Miss variable"""
+    def test_83(self):
+        """Call statement with index operator"""
         input = """
         Function : main
             Parameter: t
@@ -927,10 +926,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,282))
+        self.assertTrue(TestParser.checkParser(input,expect,283))
     
-    def test_82(self):
-        """Miss variable"""
+    def test_84(self):
+        """Error keyword"""
         input = """
         Function : main
             paraMeter: t
@@ -939,10 +938,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 3 col 12: paraMeter"
-        self.assertTrue(TestParser.checkParser(input,expect,283))
+        self.assertTrue(TestParser.checkParser(input,expect,284))
     
-    def test_83(self):
-        """Miss variable"""
+    def test_85(self):
+        """Error relational operator"""
         input = """
         Function : main
             Parameter: t
@@ -951,10 +950,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 5 col 33: !"
-        self.assertTrue(TestParser.checkParser(input,expect,284))
+        self.assertTrue(TestParser.checkParser(input,expect,285))
     
-    def test_84(self):
-        """Miss variable"""
+    def test_86(self):
+        """Test relational operator"""
         input = """
         Function : main
             Parameter: t
@@ -963,10 +962,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,285))
+        self.assertTrue(TestParser.checkParser(input,expect,286))
     
-    def test_85(self):
-        """Miss variable"""
+    def test_87(self):
+        """Miss Do in while statement"""
         input = """
         Function : main
             Parameter: t
@@ -977,23 +976,26 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 6 col 20: Return"
-        self.assertTrue(TestParser.checkParser(input,expect,286))
+        self.assertTrue(TestParser.checkParser(input,expect,287))
     
-    def test_86(self):
-        """Miss variable"""
+    def test_88(self):
+        """Miss Do in while statement"""
         input = """
         Function : main
             Parameter: t
             Body:
-                Var: a;
-                a = "Hello" + 2;
+                While t > 0 Do
+                    While True 
+                        Return t - 2;
+                    EndWhile.
+                EndWhile.
             EndBody.
             """
-        expect = "Error on line 6 col 20: Hello"
-        self.assertTrue(TestParser.checkParser(input,expect,287))
+        expect = "Error on line 7 col 24: Return"
+        self.assertTrue(TestParser.checkParser(input,expect,288))
     
-    def test_87(self):
-        """Miss variable"""
+    def test_89(self):
+        """Test complex function"""
         input = """
         Function: swap
             Parameter: a,b
@@ -1010,10 +1012,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,288))
+        self.assertTrue(TestParser.checkParser(input,expect,289))
     
-    def test_88(self):
-        """Miss variable"""
+    def test_90(self):
+        """Miss colon in declara function's name"""
         input = """
         Function swap
             Parameter: a,b
@@ -1030,10 +1032,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 2 col 17: swap"
-        self.assertTrue(TestParser.checkParser(input,expect,289))
+        self.assertTrue(TestParser.checkParser(input,expect,290))
     
-    def test_89(self):
-        """Miss variable"""
+    def test_91(self):
+        """Miss EndBody"""
         input = """
         Function: swap
             Parameter: a,b
@@ -1050,10 +1052,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 9 col 8: Function"
-        self.assertTrue(TestParser.checkParser(input,expect,290))
+        self.assertTrue(TestParser.checkParser(input,expect,291))
     
-    def test_90(self):
-        """Miss variable"""
+    def test_92(self):
+        """Error colon in Function declaration"""
         input = """
         Function: swap;
             Parameter: a,b
@@ -1070,10 +1072,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 2 col 22: ;"
-        self.assertTrue(TestParser.checkParser(input,expect,291))
+        self.assertTrue(TestParser.checkParser(input,expect,292))
     
-    def test_91(self):
-        """Miss variable"""
+    def test_93(self):
+        """Test nested statement"""
         input = """
         Function : main
             Body:
@@ -1089,10 +1091,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,292))
+        self.assertTrue(TestParser.checkParser(input,expect,293))
     
-    def test_92(self):
-        """Miss variable"""
+    def test_94(self):
+        """Test return statement with call statement"""
         input = """
         Function : main
             Body:
@@ -1100,10 +1102,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,293))
+        self.assertTrue(TestParser.checkParser(input,expect,294))
     
-    def test_93(self):
-        """Miss variable"""
+    def test_95(self):
+        """Test comment"""
         input = """
         Function : main
             Body:
@@ -1112,10 +1114,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,294))
+        self.assertTrue(TestParser.checkParser(input,expect,295))
     
-    def test_94(self):
-        """Miss variable"""
+    def test_96(self):
+        """Test block comment"""
         input = """
         Function : main
             Body:
@@ -1125,10 +1127,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input,expect,295))
+        self.assertTrue(TestParser.checkParser(input,expect,296))
 
-    def test_95(self):
-        """Miss variable"""
+    def test_97(self):
+        """Error literal"""
         input = """
         Function : main
             Body:
@@ -1136,10 +1138,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 4 col 27: ."
-        self.assertTrue(TestParser.checkParser(input,expect,296))
+        self.assertTrue(TestParser.checkParser(input,expect,297))
     
-    def test_96(self):
-        """Miss variable"""
+    def test_98(self):
+        """Error octal"""
         input = """
         Function : main
             Body:
@@ -1147,10 +1149,10 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 4 col 26: oABC"
-        self.assertTrue(TestParser.checkParser(input,expect,297))
+        self.assertTrue(TestParser.checkParser(input,expect,298))
     
-    def test_97(self):
-        """Miss variable"""
+    def test_99(self):
+        """Error hexadecimal"""
         input = """
         Function : main
             Body:
@@ -1158,15 +1160,15 @@ class ParserSuite(unittest.TestCase):
             EndBody.
             """
         expect = "Error on line 4 col 26: xMNH"
-        self.assertTrue(TestParser.checkParser(input,expect,298))
+        self.assertTrue(TestParser.checkParser(input,expect,299))
     
-    def test_98(self):
-        """Miss variable"""
+    def test_100(self):
+        """Error declaration"""
         input = """
         Function : main
             Body:
-                Var: x = 2 + 3; 
+                Var: x = y = z = 3; 
             EndBody.
             """
-        expect = "Error on line 4 col 27: +"
-        self.assertTrue(TestParser.checkParser(input,expect,299))
+        expect = "Error on line 4 col 25: y"
+        self.assertTrue(TestParser.checkParser(input,expect,300))

@@ -1,6 +1,6 @@
 
         Function : main
-            paraMeter: t
+            Parameter: t
             Body:
                 foo()[2] = 5;
             EndBody.

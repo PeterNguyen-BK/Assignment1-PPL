@@ -1,1 +1,1 @@
-Error Token _
+a,=,4,+,b,<EOF>

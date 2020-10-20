@@ -1,1 +1,1 @@
-Error on line 4 col 26: oABC
+Error on line 4 col 27: .

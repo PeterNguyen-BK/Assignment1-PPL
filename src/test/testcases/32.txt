@@ -1,1 +1,1 @@
- "abc\'xyz" 
+_function var declare

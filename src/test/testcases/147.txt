@@ -1,1 +1,1 @@
-If a>b
+If a != b

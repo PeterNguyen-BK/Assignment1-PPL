@@ -1,1 +1,1 @@
-Illegal Escape In String: \d
+Unclosed String: abcd \b 

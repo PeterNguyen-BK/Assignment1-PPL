@@ -1,1 +1,1 @@
- "This is test for" unclosed string" 
+return a + b;

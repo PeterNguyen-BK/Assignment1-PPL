@@ -1,1 +1,1 @@
-return,a,+,b,;,<EOF>
+goo,(,),;,<EOF>

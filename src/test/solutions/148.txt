@@ -1,1 +1,1 @@
-If,a,>,b,Then,a,+,b,<EOF>
+If,a,>,b,<EOF>

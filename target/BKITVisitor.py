@@ -164,11 +164,6 @@ class BKITVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by BKITParser#statementList.
-    def visitStatementList(self, ctx:BKITParser.StatementListContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by BKITParser#for_stmt.
     def visitFor_stmt(self, ctx:BKITParser.For_stmtContext):
         return self.visitChildren(ctx)

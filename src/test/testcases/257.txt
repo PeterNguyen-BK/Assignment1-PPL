@@ -1,15 +1,8 @@
 
-        Function: fact
-            Parameter: n
-            Body:
-                If n == 0 Then
-                    Return 1;
-                Else
-                    Return n * fact (n - 1);
-                EndIf.
-            EndBody.
         Function: main
             Parameter: a,b
             Body:
-                a = fact(5);
+                Var: x[2] = {1,2}, y[3] = {4,5,6};
+                a = (2 + 3) * 4 - 5 \ 10 +. 12.2;
+                b = x[1] + y[2] + a;
             EndBody.

@@ -1,1 +1,1 @@
-Var: x = true, y = False;
+Var: x = True;

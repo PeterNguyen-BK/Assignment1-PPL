@@ -1,8 +1,8 @@
 
         Function : foo
-            Parameter: t
+            Parameter: t; x = 12, y = 12.
             Body:
-                Var: z[2] = {1,2};
-                z[True] = 2;
+                Var: z = 2;
+                Return x;
             EndBody.
             

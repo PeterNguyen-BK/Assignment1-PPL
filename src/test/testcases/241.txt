@@ -2,5 +2,4 @@
         Function: main
             Body:
                 Var: x = 1, y, z = 12.e5;
-                Return x + y + z;
             EndBody.

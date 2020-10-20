@@ -1,1 +1,1 @@
-(,,,while,,,:,h050f,end,return,,,+,,,[,,,or,m3ff3,while,for,y848d,while,downto,-,+,,,],),>=,hdcb8,false,for,>,not,and,(,(,*,(,[,bc9ca,,,],,,b1ebd,;,w28cd,,,procedure,,,if,*,),<EOF>
+],,,],,,*,ae0bc,not,mod,,,return,,,,,function,<,+,qefbe,and,;,of,o366c,false,array,else,<,>,and,downto,for,Error Token J

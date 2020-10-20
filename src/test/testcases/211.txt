@@ -1,1 +1,1 @@
-Var: x = True;
+var: x = 10;

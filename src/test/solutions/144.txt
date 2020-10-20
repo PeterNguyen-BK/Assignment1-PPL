@@ -1,1 +1,1 @@
-abc \' cde,<EOF>
+abc \n\f\b,<EOF>

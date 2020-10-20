@@ -2,7 +2,6 @@
         Function: main
             Parameter: n,m
             Body:
-                Var: a = True;
-                Return !a;
+                Return n && m;
             EndBody.
             
